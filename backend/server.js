@@ -58,7 +58,42 @@ app.get("/api/products", (req, res) => {
   },
 ]);
 });
+// Place Order API
+app.post("/api/orders", (req, res) => {
+  const { customer, items, total, address } = req.body;
 
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return res.status(400).json({
+      success: false,
+      message: "Your cart is empty",
+    });
+  }
+
+  if (!customer || !address) {
+    return res.status(400).json({
+      success: false,
+      message: "Customer name and delivery address are required",
+    });
+  }
+
+  const order = {
+    orderId: "MM" + Date.now(),
+    customer,
+    items,
+    total,
+    address,
+    status: "Order Placed",
+    createdAt: new Date().toISOString(),
+  };
+
+  console.log("New order received:", order);
+
+  res.status(201).json({
+    success: true,
+    message: "Order placed successfully!",
+    order,
+  });
+});
 app.listen(5000, () => {
   console.log("MultiMart Backend running on http://localhost:5000");
 });
