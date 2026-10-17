@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-const API = "http://localhost:5000/api";
+const API = "https://multimart-2.vercel.app/api";
 
 const demoProducts = [
   {
